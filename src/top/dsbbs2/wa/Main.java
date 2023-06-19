@@ -126,6 +126,7 @@ public class Main extends JavaPlugin {
                 while(!completed[0]){try{Thread.sleep(1);}catch(InterruptedException exc){throw new RuntimeException(exc);}}
             }
         });
+        server.start();
     }
     public static class WebItemStack
     {

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="WebAPI:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/WebAPI_jar</output-path>
+    <root id="archive" name="WebAPI.jar">
+      <element id="module-output" name="WebAPI" />
+      <element id="file-copy" path="$PROJECT_DIR$/plugin.yml" />
+    </root>
+  </artifact>
+</component>

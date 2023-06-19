@@ -1,0 +1,6 @@
+name: WebAPI
+version: 0.1
+author: lvxinlei
+main: top.dsbbs2.wa.Main
+description: WebAPI
+api-version: 1.13

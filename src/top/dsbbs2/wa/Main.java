@@ -113,6 +113,7 @@ public class Main extends JavaPlugin {
                             ItemStack[] c=p.getInventory().getContents();
                             List<WebItemStack> inv=new ArrayList<>(c.length);
                             Stream.of(c).map(i->{
+                                if(i==null) return null;
                                 WebItemStack wis=new WebItemStack();
                                 wis.amount=i.getAmount();
                                 wis.type=i.getType().name();

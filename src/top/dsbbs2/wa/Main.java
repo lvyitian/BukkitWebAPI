@@ -40,7 +40,9 @@ public class Main extends JavaPlugin {
                     JsonObject obj=new JsonObject();
                     obj.add("code",new JsonPrimitive(-3));
                     obj.add("err",new JsonPrimitive("Plugin is not loaded"));
-                    o.write(gson.toJson(obj).getBytes(StandardCharsets.UTF_8));
+                    byte[] buf=gson.toJson(obj).getBytes(StandardCharsets.UTF_8);
+                    ctx.sendResponseHeaders(500,buf.length);
+                    o.write(buf);
                 }
                 return;
             }
@@ -48,8 +50,10 @@ public class Main extends JavaPlugin {
             Bukkit.getScheduler().runTask(instance,()->{
                 try {
                     try (OutputStream o = ctx.getResponseBody()) {
-                        o.write(gson.toJson(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), new TypeToken<List<String>>() {
-                        }.getType()).getBytes(StandardCharsets.UTF_8));
+                        byte[] buf=gson.toJson(Bukkit.getOnlinePlayers().stream().map(Player::getName).collect(Collectors.toList()), new TypeToken<List<String>>() {
+                        }.getType()).getBytes(StandardCharsets.UTF_8);
+                        ctx.sendResponseHeaders(200,buf.length);
+                        o.write(buf);
                     } catch (IOException exc) {
                         throw new RuntimeException(exc);
                     }
@@ -69,7 +73,9 @@ public class Main extends JavaPlugin {
                     JsonObject obj=new JsonObject();
                     obj.add("code",new JsonPrimitive(-1));
                     obj.add("err",new JsonPrimitive("Argument <player> is mandatory"));
-                    o.write(gson.toJson(obj).getBytes(StandardCharsets.UTF_8));
+                    byte[] buf=gson.toJson(obj).getBytes(StandardCharsets.UTF_8);
+                    ctx.sendResponseHeaders(500,buf.length);
+                    o.write(buf);
                 }
                 return;
             }else{
@@ -79,7 +85,9 @@ public class Main extends JavaPlugin {
                         JsonObject obj=new JsonObject();
                         obj.add("code",new JsonPrimitive(-3));
                         obj.add("err",new JsonPrimitive("Plugin is not loaded"));
-                        o.write(gson.toJson(obj).getBytes(StandardCharsets.UTF_8));
+                        byte[] buf=gson.toJson(obj).getBytes(StandardCharsets.UTF_8);
+                        ctx.sendResponseHeaders(500,buf.length);
+                        o.write(buf);
                     }
                     return;
                 }
@@ -94,7 +102,9 @@ public class Main extends JavaPlugin {
                                 JsonObject obj=new JsonObject();
                                 obj.add("code",new JsonPrimitive(-2));
                                 obj.add("err",new JsonPrimitive("Player \""+path2+"\" is not online"));
-                                o.write(gson.toJson(obj).getBytes(StandardCharsets.UTF_8));
+                                byte[] buf=gson.toJson(obj).getBytes(StandardCharsets.UTF_8);
+                                ctx.sendResponseHeaders(500,buf.length);
+                                o.write(buf);
                             }catch (IOException exc) {
                                 throw new RuntimeException(exc);
                             }
@@ -115,7 +125,9 @@ public class Main extends JavaPlugin {
                                 obj.add("code",new JsonPrimitive(0));
                                 obj.add("selectedSlot",new JsonPrimitive(p.getInventory().getHeldItemSlot()));
                                 obj.add("inventory",gson.toJsonTree(inv,new TypeToken<List<WebItemStack>>(){}.getType()));
-                                o.write(gson.toJson(obj).getBytes(StandardCharsets.UTF_8));
+                                byte[] buf=gson.toJson(obj).getBytes(StandardCharsets.UTF_8);
+                                ctx.sendResponseHeaders(200,buf.length);
+                                o.write(buf);
                             }catch (IOException exc) {
                                 throw new RuntimeException(exc);
                             }
